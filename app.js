@@ -5,6 +5,7 @@ const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const compression = require("compression");
+const cors = require("cors");
 // const hpp = require('hpp');
 
 const controller = require("./controllers");
@@ -15,6 +16,8 @@ const { CODE } = require("./constants");
 const app = express();
 
 // 1) MIDDLEWARES
+app.use(cors());
+
 // Set security headers
 app.use(helmet());
 
