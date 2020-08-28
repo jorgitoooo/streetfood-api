@@ -31,7 +31,7 @@ function signTokenAndSend(user, status, res, req) {
     data: {
       user: {
         _id: user._id,
-        name: user.name,
+        handle: user.handle,
         email: user.email,
       },
     },
@@ -39,10 +39,19 @@ function signTokenAndSend(user, status, res, req) {
 }
 
 exports.signup = catchAsync(async function signup(req, res, next) {
-  const { role, name, email, password, passwordConfirm } = req.body;
+  const {
+    firstName,
+    lastName,
+    handle,
+    email,
+    password,
+    passwordConfirm,
+  } = req.body;
   const newUser = await User.create({
-    role, // Will change later so that users cannot specify role
-    name,
+    // role, // Will change later so that users cannot specify role
+    firstName,
+    lastName,
+    handle,
     email,
     password,
     passwordConfirm,

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const { Stand } = require("../models");
+const Stand = require("./stand.model");
 const validator = require("../validators");
 const { ROLE } = require("../constants");
 
@@ -13,14 +13,28 @@ const userSchema = new Schema(
       default: USER,
       enum: [ADMIN, USER, STAND_OWNER],
     },
-    name: {
+    firstName: {
       type: String,
-      required: [true, "A user must have a name"],
+      required: [true, "A user must have a first name"],
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: [true, "A user must have a last name"],
+      trim: true,
+    },
+    handle: {
+      type: String,
+      required: [true, "A user must have a username"],
+      trim: true,
+      unique: true,
+      maxlength: [15, "A username must not be larger than 15 characters"],
     },
     email: {
       type: String,
       required: [true, "A user must have an email"],
       unique: true,
+      lowercase: true,
       validate: [validator.user.isEmail, "Please enter a valid email address"],
     },
     password: {

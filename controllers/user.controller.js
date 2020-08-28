@@ -47,7 +47,13 @@ exports.updateMe = catchAsync(async function (req, res, next) {
   }
 
   // TODO: Allow for updating avatar
-  const filteredBody = filterObj(req.body, "name", "email");
+  const filteredBody = filterObj(
+    req.body,
+    "firstName",
+    "lastName",
+    "handle",
+    "email"
+  );
 
   const user = await User.findByIdAndUpdate(req.user.id, filteredBody);
   if (!user) {

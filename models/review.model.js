@@ -26,7 +26,7 @@ reviewSchema.index({ author: 1, stand: 1 }, { unique: true });
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: "author",
-    select: "name avatar",
+    select: "handle avatar",
   }).populate({
     path: "stand",
     select: "name avatar",
