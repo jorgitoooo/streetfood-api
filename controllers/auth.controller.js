@@ -13,12 +13,13 @@ function signToken(id) {
   });
 }
 
-function signTokenAndSend(user, status, res) {
+function signTokenAndSend(user, status, res, req) {
   const token = signToken(user._id);
 
   const cookieOptions = {
     expires: new Date(Date.now() + EXPIRES_IN_MS),
     httpOnly: true,
+    // Heroku specific header
     secure: req.secure || req.headers["x-forwarded-proto"] === "https",
   };
 
@@ -47,7 +48,7 @@ exports.signup = catchAsync(async function signup(req, res, next) {
     passwordConfirm,
   });
 
-  signTokenAndSend(newUser, CODE.CREATED, res);
+  signTokenAndSend(newUser, CODE.CREATED, res, req);
 });
 
 exports.login = catchAsync(async function login(req, res, next) {
@@ -63,7 +64,7 @@ exports.login = catchAsync(async function login(req, res, next) {
     );
   }
 
-  signTokenAndSend(user, CODE.OK, res);
+  signTokenAndSend(user, CODE.OK, res, req);
 });
 
 exports.protect = catchAsync(async function protect(req, res, next) {
