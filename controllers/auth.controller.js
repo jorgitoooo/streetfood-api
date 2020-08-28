@@ -19,11 +19,8 @@ function signTokenAndSend(user, status, res) {
   const cookieOptions = {
     expires: new Date(Date.now() + EXPIRES_IN_MS),
     httpOnly: true,
+    secure: req.secure || req.headers["x-forwarded-proto"] === "https",
   };
-
-  if (process.env.NODE_ENV === "production") {
-    cookieOptions.secure = true;
-  }
 
   res.cookie("jwt", token, cookieOptions);
 

@@ -16,6 +16,10 @@ const { CODE } = require("./constants");
 
 const app = express();
 
+// Trust heroku so that it's able to set
+// the x-forwarded-proto header
+app.enable("trust proxy");
+
 // 1) MIDDLEWARES
 // Implement CORS
 app.use(cors());
