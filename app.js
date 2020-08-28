@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const compression = require("compression");
 // const hpp = require('hpp');
 
 const controller = require("./controllers");
@@ -48,6 +49,8 @@ app.use(xss());
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
+
+app.use(compression());
 
 // 3) ROUTES
 app.use("/api/v1/user", routes.user);
