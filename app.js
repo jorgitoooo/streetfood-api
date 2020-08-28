@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -16,7 +17,10 @@ const { CODE } = require("./constants");
 const app = express();
 
 // 1) MIDDLEWARES
+// Implement CORS
 app.use(cors());
+// Access-Control-Allow-Origin *
+app.options("*", cors());
 
 // Set security headers
 app.use(helmet());
@@ -51,7 +55,7 @@ app.use(xss());
 // );
 
 // Serving static files
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(compression());
 
