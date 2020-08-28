@@ -92,32 +92,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// TODO: Populate the populated data
-// Query middleware: Embeds guides into tours docs
+// Prevents deleted/inactive users from being returned
 userSchema.pre(/^find/, function (next) {
-  // console.log(this);
-  // if (!Array.isArray(docs)) {
-  //   docs.favorites = docs.favorites.map(async (fav) => {
-  //     return await Stand.findById(fav.stand);
-  //   });
-  // }
-  // this.populate({
-  //   path: 'favorites',
-  //   select: '-__v -passwordChangedDate',
-  // });
-  next();
-});
-userSchema.post(/^find/, function (docs, next) {
-  // console.log(docs);
-  // if (!Array.isArray(docs)) {
-  //   docs.favorites = docs.favorites.map(async (fav) => {
-  //     return await Stand.findById(fav.stand);
-  //   });
-  // }
-  // this.populate({
-  //   path: 'favorites',
-  //   select: '-__v -passwordChangedDate',
-  // });
+  this.where({ active: { $ne: false } });
   next();
 });
 
