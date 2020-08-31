@@ -20,6 +20,13 @@ const app = express();
 // the x-forwarded-proto header
 app.enable("trust proxy");
 
+// Set up view engine
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+// Serving static files
+app.use(express.static(path.join(__dirname, "public")));
+
 // 1) MIDDLEWARES
 // Implement CORS
 app.use(cors());
@@ -58,12 +65,15 @@ app.use(xss());
 //   })
 // );
 
-// Serving static files
-app.use(express.static(path.join(__dirname, "public")));
-
 app.use(compression());
 
 // 3) ROUTES
+app.get("/", (req, res) => {
+  // res.render(path.join(__dirname, "public", "index.html"));
+  // res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.status(CODE.OK).render("base");
+});
+
 app.use("/api/v1/user", routes.user);
 app.use("/api/v1/stand", routes.stand);
 
