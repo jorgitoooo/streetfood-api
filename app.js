@@ -120,6 +120,15 @@ app.get("/", (req, res) => {
 app.use("/api/v1/user", routes.user);
 app.use("/api/v1/stand", routes.stand);
 
+// Redirection to documentation
+const redirectRoute = (req, res) => {
+  res.redirect("/");
+};
+app.get("/docs", redirectRoute);
+app.get("/docs/*", redirectRoute);
+app.get("/api/docs", redirectRoute);
+app.get("/api/docs/*", redirectRoute);
+
 app.all("*", (req, res, next) => {
   const err = new AppError(
     `${req.originalUrl} is not a valid endpoint`,
