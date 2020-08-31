@@ -5,7 +5,7 @@ mixin http_req(method)
             hr.bg-secondary
             block
 
-mixin table(desc, roles, auth="Bearer authentication.")
+mixin table(desc, roles, res="N/A", auth="Bearer authentication.")
     table.table.table-dark.table-striped
         tbody
             tr
@@ -17,31 +17,37 @@ mixin table(desc, roles, auth="Bearer authentication.")
             tr
                 td Authorized Roles
                 td=roles
+            tr
+                td Response
+                td: a.text-white&attributes(attributes)= res
 
 block routes
-    article#user.mx-3.flex-column
-        h2: code.text-secondary /user
-        +http_req('GET').bg-success
-            +table("Retrieve all users.", "[user, stand-owner, admin]")
+    section.container
+        h1#routes.display-4.text-dark Routes
+        hr
+        article#user.flex-column
+            h2: code.text-secondary /user
+            +http_req('GET').bg-success
+                +table("Retrieve all users.", "[user, stand-owner, admin]", "Array of user objects.")(href="#user-obj")
 
-    article#user-me.mx-3.flex-column
-        h2: code.text-secondary /user/me
-        +http_req('GET').bg-success
-            +table("Retrieve currently logged in user.", "[user, stand-owner]")
+        article#user-me.flex-column
+            h2: code.text-secondary /user/me
+            +http_req('GET').bg-success
+                +table("Retrieve currently logged in user.", "[user, stand-owner]", "User object.")(href="#user-obj")
 
-        +http_req('PATCH').bg-secondary
-            +table("Update currently logged in user.", "[user, stand-owner]")
+            +http_req('PATCH').bg-secondary
+                +table("Update currently logged in user.", "[user, stand-owner]", "Updated user object")(href="#user-obj")
 
-        +http_req('DELETE').bg-danger
-            +table("Delete currently logged in user.", "[user, stand-owner]")
+            +http_req('DELETE').bg-danger
+                +table("Delete currently logged in user.", "[user, stand-owner]")
 
-    
-    article#user-signup.mx-3.flex-column
-        h2: code.text-secondary /user/signup
-        +http_req('POST').bg-warning
-            +table("Creates a new user.", "N/A", "N/A")
-    
-    article#user-login.mx-3.flex-column
-        h2: code.text-secondary /user/login
-        +http_req('POST').bg-warning
-            +table("Login as an existing user.", "N/A", "N/A")
+        
+        article#user-signup.flex-column
+            h2: code.text-secondary /user/signup
+            +http_req('POST').bg-warning
+                +table("Creates a new user.", "N/A", "Authentication object", "N/A")(href="#auth-obj")
+        
+        article#user-login.flex-column
+            h2: code.text-secondary /user/login
+            +http_req('POST').bg-warning
+                +table("Login as an existing user.", "N/A", "Authentication object", "N/A")(href="#auth-obj")
