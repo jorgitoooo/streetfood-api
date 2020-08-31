@@ -1,0 +1,31 @@
+block navbar
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+        a.navbar-brand(href="#"): code: strong StreetFood API
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarMenu")
+            span.navbar-toggler-icon
+        section.collapse.navbar-collapse#navbarMenu
+            ul.navbar-nav.ml-auto
+                li.nav-item.active
+                    a.nav-link Docs
+                div.nav-divider
+                li.nav-item.dropdown
+                    a#navbarRoutesDropdown.nav-link.dropdown-toggle(
+                    href="#"
+                    role="button"
+                    data-toggle="dropdown"): code /api/v1
+                    div.dropdown-menu.dropdown-menu-right(
+                    aria-labelledby="navbarRoutesDropdown")
+                        a.dropdown-item(href="#user")
+                            code /user
+                        div.dropdown-divider
+                        a.dropdown-item(href="#user-me")
+                            code /user/me
+                        div.dropdown-divider
+                        a.dropdown-item(href="#user-signup")
+                            code /user/signup
+                        div.dropdown-divider
+                        a.dropdown-item(href="#user-login")
+                            code /user/login
+                        div.dropdown-divider
+                        a.dropdown-item(href="#stand")
+                            code /stand

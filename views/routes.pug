@@ -1,0 +1,47 @@
+mixin http_req(method)
+    section.my-2.p-2.bg-dark.rounded
+        h3: code: strong.px-2.py-1.rounded.text-white&attributes(attributes)= method
+        if block
+            hr.bg-secondary
+            block
+
+mixin table(desc, roles, auth="Bearer authentication.")
+    table.table.table-dark.table-striped
+        tbody
+            tr
+                td Description
+                td=desc
+            tr
+                td Authentication
+                td=auth
+            tr
+                td Authorized Roles
+                td=roles
+
+block routes
+    article#user.mx-3.flex-column
+        h2: code.text-secondary /user
+        +http_req('GET').bg-success
+            +table("Retrieve all users.", "[user, stand-owner, admin]")
+
+    article#user-me.mx-3.flex-column
+        h2: code.text-secondary /user/me
+        +http_req('GET').bg-success
+            +table("Retrieve currently logged in user.", "[user, stand-owner]")
+
+        +http_req('PATCH').bg-secondary
+            +table("Update currently logged in user.", "[user, stand-owner]")
+
+        +http_req('DELETE').bg-danger
+            +table("Delete currently logged in user.", "[user, stand-owner]")
+
+    
+    article#user-signup.mx-3.flex-column
+        h2: code.text-secondary /user/signup
+        +http_req('POST').bg-warning
+            +table("Creates a new user.", "N/A", "N/A")
+    
+    article#user-login.mx-3.flex-column
+        h2: code.text-secondary /user/login
+        +http_req('POST').bg-warning
+            +table("Login as an existing user.", "N/A", "N/A")
