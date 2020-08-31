@@ -55,7 +55,9 @@ exports.updateMe = catchAsync(async function (req, res, next) {
     "email"
   );
 
-  const user = await User.findByIdAndUpdate(req.user.id, filteredBody);
+  const user = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+  });
   if (!user) {
     return next(new AppError("User does not exist.", CODE.NOT_FOUND));
   }
