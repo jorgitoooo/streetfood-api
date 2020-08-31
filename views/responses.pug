@@ -1,11 +1,8 @@
-mixin code_fig()
-    figure.p-2.bg-dark.rounded: pre: code.text-light
-        if block
-            block
+include mixins/util
 
 block responses
-    section.container
-        h1#responses.display-4.text-dark Responses
+    section.container.py-3
+        +section_title("Responses")#responses
         hr
         h2#auth-obj: code.text-secondary General Response
         +code_fig()
@@ -13,18 +10,22 @@ block responses
             |     "status": ("fail" | "success"),
             |     [ "results": Number, ]
             |     [ "token": Json Web Token, ]
-            |     "data": { payload }
+            |     "data": {
+            |         Payload
+            |     }
             | }
         div.alert.alert-info
             | #[h6: strong NOTE] Every response will take the form seen above and will contain the following fields.
             ul
+                li: p #[code "status"] is a field with a value of "fail" or "success".
                 li: p #[code "results"] is a field included only if payload is an array of objects.
-                li: p #[code "token"] is a field only returned by authentication routes. 
+                li: p #[code "token"] is a field holds the bearer token and is only returned by authentication routes. 
                 li: p #[code "data"] contains is the actual object being returned.
 
-        h2#auth-obj: code.text-secondary Authentication Object
+        h2#auth-obj: code.text-secondary Authentication Response
         +code_fig()
             | {
+            |     "status": "success",
             |     "token": "eyJhbGciOiJIUzI1...2O6VHboZYR4pc",
             |     "data": {
             |         "user": {
@@ -35,7 +36,7 @@ block responses
             |     }
             | }
 
-        h2#user-obj: code.text-secondary User Object
+        h2#user-obj: code.text-secondary User Payload
         +code_fig()
             | {
             |     "user": {
@@ -84,7 +85,7 @@ block responses
             |     }
             | }
 
-        h2#stand-obj: code.text-secondary Stand Object
+        h2#stand-obj: code.text-secondary Stand Payload
         +code_fig()
             | {
             |     "stand": {

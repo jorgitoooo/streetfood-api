@@ -1,3 +1,5 @@
+include mixins/util
+
 mixin http_req(method)
     section.my-2.p-2.bg-dark.rounded
         h3: code: strong.px-2.py-1.rounded.text-white&attributes(attributes)= method
@@ -22,8 +24,8 @@ mixin table(desc, roles, res="N/A", auth="Bearer authentication.")
                 td: a.text-white&attributes(attributes)= res
 
 block routes
-    section.container
-        h1#routes.display-4.text-dark Routes
+    section.container.py-3
+        +section_title("Routes")#routes
         hr
         article#user.flex-column
             h2: code.text-secondary /user
