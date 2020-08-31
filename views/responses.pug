@@ -1,0 +1,200 @@
+mixin code_fig()
+    figure.p-2.bg-dark.rounded: pre: code.text-light
+        if block
+            block
+
+block responses
+    section.container
+        h1#responses.display-4.text-dark Responses
+        hr
+        h2#auth-obj: code.text-secondary General Response
+        +code_fig()
+            | {
+            |     "status": ("fail" | "success"),
+            |     [ "results": Number, ]
+            |     [ "token": Json Web Token, ]
+            |     "data": { payload }
+            | }
+        div.alert.alert-info
+            | #[h6: strong NOTE] Every response will take the form seen above and will contain the following fields.
+            ul
+                li: p #[code "results"] is a field included only if payload is an array of objects.
+                li: p #[code "token"] is a field only returned by authentication routes. 
+                li: p #[code "data"] contains is the actual object being returned.
+
+        h2#auth-obj: code.text-secondary Authentication Object
+        +code_fig()
+            | {
+            |     "token": "eyJhbGciOiJIUzI1...2O6VHboZYR4pc",
+            |     "data": {
+            |         "user": {
+            |             "_id": "5f4d3127130f5c073c0683e2",
+            |             "handle": "taco_lover",
+            |             "email": "me@jorgegarcia.co"
+            |         }
+            |     }
+            | }
+
+        h2#user-obj: code.text-secondary User Object
+        +code_fig()
+            | {
+            |     "user": {
+            |         "role": "user",
+            |         "avatar": "user-avatar-default.jpeg",
+            |         "active": true,
+            |         "_id": "5f4457abb5eced4b10364467",
+            |         "email": "me@jorgegarcia.co",
+            |         "password": "$2b$12$5vPsmszfze...fYkWozxt2syDWXacIls7e",
+            |         "__v": 0,
+            |         "firstName": "Jorge",
+            |         "handle": "taco_lover",
+            |         "lastName": "Garcia",
+            |         "favorites": [
+            |             {
+            |                 "_id": "5f45a6ed74aa425c37b21647",
+            |                 "user": "5f4457abb5eced4b10364467",
+            |                 "stand": {
+            |                     "avatar": "stand-avatar-default.png",
+            |                     "_id": "5f4491a746a87f506b35bab0",
+            |                     "name": "Tacos de Van Nuys",
+            |                     "id": "5f4491a746a87f506b35bab0"
+            |                 }
+            |             }
+            |         ],
+            |         "reviews": [
+            |             {
+            |                 "_id": "5f456a18b5c94f587f98a5e2",
+            |                 "author": {
+            |                     "avatar": "user-avatar-default.jpeg",
+            |                     "_id": "5f4457abb5eced4b10364467",
+            |                     "handle": "taco_lover",
+            |                     "id": "5f4457abb5eced4b10364467"
+            |                 },
+            |                 "stand": {
+            |                     "avatar": "stand-avatar-default.png",
+            |                     "_id": "5f447501fba8314e91209635",
+            |                     "name": "Streeto Taquitos",
+            |                     "id": "5f447501fba8314e91209635"
+            |                 },
+            |                 "text": "This taco stand is incredible!",
+            |                 "rating": 5
+            |             }
+            |         ],
+            |         "id": "5f4457abb5eced4b10364467"
+            |     }
+            | }
+
+        h2#stand-obj: code.text-secondary Stand Object
+        +code_fig()
+            | {
+            |     "stand": {
+            |         "location": {
+            |             "type": "Point",
+            |             "coordinates": []
+            |         },
+            |         "hoursOfOp": {
+            |             "monday": {
+            |                 "_id": "5f44aa2084f63d51c9997ad5",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ad5"
+            |             },
+            |             "tuesday": {
+            |                 "_id": "5f44aa2084f63d51c9997ad6",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ad6"
+            |             },
+            |             "wednesday": {
+            |                 "_id": "5f44aa2084f63d51c9997ad7",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ad7"
+            |             },
+            |             "thursday": {
+            |                 "_id": "5f44aa2084f63d51c9997ad8",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ad8"
+            |             },
+            |             "friday": {
+            |                 "_id": "5f44aa2084f63d51c9997ad9",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ad9"
+            |             },
+            |             "saturday": {
+            |                 "_id": "5f44aa2084f63d51c9997ada",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997ada"
+            |             },
+            |             "sunday": {
+            |                 "_id": "5f44aa2084f63d51c9997adb",
+            |                 "openTime": "4:00 pm",
+            |                 "closeTime": "11:00 pm",
+            |                 "id": "5f44aa2084f63d51c9997adb"
+            |             }
+            |         },
+            |         "avatar": "stand-avatar-default.png",
+            |         "ratingsAverage": 3.25,
+            |         "ratingsQuantity": 2,
+            |         "_id": "5f44aa2084f63d51c9997ad4",
+            |         "name": "To-go Taco",
+            |         "owner": "5f446f194f1fa44d95dd8d62",
+            |         "menu": [
+            |             {
+            |                 "image": "taco-placeholder.png",
+            |                 "_id": "5f44aa2084f63d51c9997adc",
+            |                 "name": "Tacos de asada",
+            |                 "price": 1.75
+            |             },
+            |             {
+            |                 "image": "taco-placeholder.png",
+            |                 "_id": "5f44aa2084f63d51c9997add",
+            |                 "name": "Tacos de lengua",
+            |                 "price": 1.75
+            |             },
+            |             {
+            |                 "image": "taco-placeholder.png",
+            |                 "_id": "5f44aa2084f63d51c9997ade",
+            |                 "name": "Tacos de tripa",
+            |                 "price": 1.75
+            |             }
+            |         ],
+            |         "slug": "to-go-taco",
+            |         "__v": 0,
+            |         "reviews": [
+            |             {
+            |                 "_id": "5f4891b83dfb6ed97319c766",
+            |                 "author": null,
+            |                 "stand": {
+            |                     "avatar": "stand-avatar-default.png",
+            |                     "_id": "5f44aa2084f63d51c9997ad4",
+            |                     "name": "To-go Taco",
+            |                     "id": "5f44aa2084f63d51c9997ad4"
+            |                 },
+            |                 "text": "This place is pretty great.",
+            |                 "rating": 4
+            |             },
+            |             {
+            |                 "_id": "5f48926c3dfb6ed97319c775",
+            |                 "author": {
+            |                     "avatar": "user-avatar-default.jpeg",
+            |                     "_id": "5f4457abb5eced4b10364467",
+            |                     "handle": "jorgito",
+            |                     "id": "5f4457abb5eced4b10364467"
+            |                 },
+            |                 "stand": {
+            |                     "avatar": "stand-avatar-default.png",
+            |                     "_id": "5f44aa2084f63d51c9997ad4",
+            |                     "name": "To-go Taco",
+            |                     "id": "5f44aa2084f63d51c9997ad4"
+            |                 },
+            |                 "text": "I've had better.",
+            |                 "rating": 2.5
+            |             }
+            |         ],
+            |         "id": "5f44aa2084f63d51c9997ad4"
+            |     }
+            | }

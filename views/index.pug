@@ -16,7 +16,9 @@ html(lang="en")
     body.bg-light
         include navbar
 
-        main: section: include routes
+        main
+            include responses
+            include routes
         
         block footer
             footer: p.text-center Developed by #[code: strong.text-secondary Jorge L. Garcia]
