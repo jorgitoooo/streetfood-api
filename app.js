@@ -33,8 +33,53 @@ app.use(cors());
 // Access-Control-Allow-Origin *
 app.options("*", cors());
 
+/**
+ * default-src 'self';
+ * base-uri 'self';
+ * block-all-mixed-content;
+ * font-src 'self' https: data:;
+ * frame-ancestors 'self';
+ * img-src 'self' data:;
+ * object-src 'none';
+ * script-src 'self';
+ * script-src-attr 'none';
+ * style-src 'self' https: 'unsafe-inline';
+ * upgrade-insecure-requests
+ */
 // Set security headers
-app.use(helmet());
+// app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "default-src": ["'self'"],
+      "base-uri": ["'self'"],
+      "block-all-mixed-content": [],
+      "font-src": ["'self'", "https:", "data:"],
+      "frame-ancestors": ["'self'"],
+      "img-src": ["'self'", "data:"],
+      "object-src": ["'none'"],
+      "script-src": [
+        "'self'",
+        "https://code.jquery.com/jquery-3.5.1.slim.min.js",
+        "https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js",
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+      ],
+      "script-src-attr": ["'none'"],
+      "style-src": ["'self'", "https:", "'unsafe-inline'"],
+      "upgrade-insecure-requests": [],
+    },
+  })
+);
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.expectCt());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.referrerPolicy());
+app.use(helmet.xssFilter());
 
 // Development logging
 if (process.env.NODE_ENV === "development") {
@@ -69,9 +114,7 @@ app.use(compression());
 
 // 3) ROUTES
 app.get("/", (req, res) => {
-  // res.render(path.join(__dirname, "public", "index.html"));
-  // res.sendFile(path.join(__dirname, "public", "index.html"));
-  res.status(CODE.OK).render("base");
+  res.status(CODE.OK).render("index");
 });
 
 app.use("/api/v1/user", routes.user);
