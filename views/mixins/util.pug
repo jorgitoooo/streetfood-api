@@ -1,0 +1,8 @@
+mixin code_fig()
+    figure.p-2.bg-dark.rounded: pre: code.text-light
+        if block
+            block
+
+mixin section_title(title)
+    -const id = attributes.id
+    h1.display-4.text-dark(id=id) #[=title] #[a.text-muted(href=`#${id}` aria-hidden="true") #]
