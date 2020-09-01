@@ -4,9 +4,7 @@ const { catchAsync, AppError } = require("../utils");
 // const { getAllReviews } = require("./review.controller");
 
 exports.createStand = catchAsync(async function (req, res, next) {
-  const stand = await Stand.create(req.body).select("-__v");
-
-  // TODO: Make sure that current user id == owner id passed in body if curr user !ADMIN
+  const stand = await Stand.create(req.body);
 
   res.status(CODE.OK).json({
     status: STATUS.SUCCESS,

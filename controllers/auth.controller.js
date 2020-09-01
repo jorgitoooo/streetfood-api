@@ -138,6 +138,31 @@ exports.idBelongsToUser = function (req, res, next) {
   next();
 };
 
+exports.isValidStandOwner = function (req, res, next) {
+  // Add owner field if it doesn't exist and logged in user is not admin
+  if (!req.body.owner && req.user.role !== ROLE.ADMIN) {
+    req.body.owner = req.user._id;
+  } else if (req.body.owner !== req.user.id && req.user.role !== ROLE.ADMIN) {
+    return next(
+      new AppError(
+        "Invalid owner field. Owner of stand must be user that is currently logged in.",
+        CODE.BAD_REQUEST
+      )
+    );
+  } else if (req.body.owner === req.user.id && req.user.role === ROLE.ADMIN) {
+    return next(
+      new AppError(
+        "Admin cannot create a stand under their `id`",
+        CODE.BAD_REQUEST
+      )
+    );
+  }
+
+  console.log(req.body.owner, req.user.id);
+  console.log(req.body.owner === req.user.id && req.user.role === ROLE.ADMIN);
+  next();
+};
+
 exports.getUser = catchAsync(async function (req, res, next) {
   console.log("getUser");
 });

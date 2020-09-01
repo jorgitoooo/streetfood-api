@@ -10,6 +10,7 @@ router
   .post(
     controller.auth.protect,
     controller.auth.restrictTo(ROLE.ADMIN, ROLE.STAND_OWNER),
+    controller.auth.isValidStandOwner,
     controller.stand.createStand
   );
 

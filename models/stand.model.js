@@ -61,6 +61,8 @@ const standSchema = new Schema(
     name: {
       type: String,
       required: [true, "A stand must have a name"],
+      unique: true,
+      trim: true,
     },
     avatar: {
       type: String,
@@ -114,6 +116,9 @@ const standSchema = new Schema(
   }
 );
 
+// Create an index for stand names
+standSchema.index({ name: 1 }, { unique: true });
+
 standSchema.virtual("reviews", {
   ref: "Review",
   localField: "_id",
@@ -121,7 +126,7 @@ standSchema.virtual("reviews", {
 });
 
 // Creates slug for stand name
-standSchema.pre("save", async function (next) {
+standSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
