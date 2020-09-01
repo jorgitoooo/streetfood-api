@@ -30,7 +30,7 @@ block routes
         article#user.flex-column
             h2: code.text-secondary /user
             +http_req('GET').bg-success
-                +table("Retrieve all users.", "[user, stand-owner, admin]", "Array of user objects.")(href="#user-obj")
+                +table("Retrieve all users.", "All", "Array of user objects.")(href="#user-obj")
 
         article#user-me.flex-column
             h2: code.text-secondary /user/me
@@ -38,12 +38,69 @@ block routes
                 +table("Retrieve currently logged in user.", "[user, stand-owner]", "User object.")(href="#user-obj")
 
             +http_req('PATCH').bg-secondary
-                +table("Update currently logged in user.", "[user, stand-owner]", "Updated user object")(href="#user-obj")
+                +table(
+                    "Update currently logged in user.",
+                    "[user, stand-owner]",
+                    "Updated user object"
+                    )(href="#user-obj")
 
             +http_req('DELETE').bg-danger
                 +table("Delete currently logged in user.", "[user, stand-owner]")
 
         
+        article#user.flex-column
+            h2: code.text-secondary /user/:id
+            +http_req('GET').bg-success
+                +table("Retrieve user with `id`.", "All", "User object.")(href="#user-obj")
+
+        article#user-me.flex-column
+            h2: code.text-secondary /user/:id/review
+            +http_req('GET').bg-success
+                +table(
+                    "Retrieve all reviews for user with `id`.",
+                    "[user, admin]",
+                    "Array of review objects."
+                    )(href="#review-obj")
+            +http_req('POST').bg-warning
+                +table(
+                    "Create a review for user with `id`.",
+                    "[user, admin]",
+                    "Review object."
+                    )(href="#review-obj")
+
+        article#user-me.flex-column
+            h2: code.text-secondary /user/:id/review/:reviewId
+            +http_req('PATCH').bg-secondary
+                +table(
+                    "Update review with `reviewId` for user with `id`.", 
+                    "[user, admin]", 
+                    "Updated review object."
+                    )(href="#review-obj")
+
+            +http_req('DELETE').bg-danger
+                +table("Delete review with `reviewId` for user with `id`.", "[user, admin]")
+
+        article#user-me.flex-column
+            h2: code.text-secondary /user/:id/favorite/
+            +http_req('GET').bg-secondary
+                +table(
+                    "Retrieve all favorites for user with `id`.", 
+                    "All", 
+                    "Array of favorite objects."
+                    )(href="#favorite-obj")
+
+            +http_req('POST').bg-danger
+                +table(
+                    "Create a favorite for user with `id`.",
+                    "All",
+                    "Favorite object."
+                    )(href="#favorite-obj")
+
+        article#user-me.flex-column
+            h2: code.text-secondary /user/:id/favorite/:standId
+            +http_req('DELETE').bg-danger
+                +table("Delete favorite with `standId` for user with `id`.", "All")
+
         article#user-signup.flex-column
             h2: code.text-secondary /user/signup
             +http_req('POST').bg-warning

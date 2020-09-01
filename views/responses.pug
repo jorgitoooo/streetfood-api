@@ -127,7 +127,7 @@ block responses
             |         "ratingsAverage": 3.25,
             |         "ratingsQuantity": 2,
             |         "_id": "5f44aa2084f63d51c9997ad4",
-            |         "name": "To-go Taco",
+            |         "name": "Taco To-go",
             |         "owner": "5f446f194f1fa44d95dd8d62",
             |         "menu": [
             |             {
@@ -158,7 +158,7 @@ block responses
             |                 "stand": {
             |                     "avatar": "stand-avatar-default.png",
             |                     "_id": "5f44aa2084f63d51c9997ad4",
-            |                     "name": "To-go Taco",
+            |                     "name": "Taco To-go",
             |                     "id": "5f44aa2084f63d51c9997ad4"
             |                 },
             |                 "text": "This place is pretty great.",
@@ -175,7 +175,7 @@ block responses
             |                 "stand": {
             |                     "avatar": "stand-avatar-default.png",
             |                     "_id": "5f44aa2084f63d51c9997ad4",
-            |                     "name": "To-go Taco",
+            |                     "name": "Taco To-go",
             |                     "id": "5f44aa2084f63d51c9997ad4"
             |                 },
             |                 "text": "I've had better.",
@@ -184,4 +184,38 @@ block responses
             |         ],
             |         "id": "5f44aa2084f63d51c9997ad4"
             |     }
+            | }
+
+        h2#review-obj: code.text-secondary Review Payload
+        +code_fig()
+            | {
+            |     "_id": "5f46a2d0ca9c9963ec66c523",
+            |     "author": {
+            |         "avatar": "user-avatar-default.jpeg",
+            |         "_id": "5f456b8db5c94f587f98a5e4",
+            |         "id": "5f456b8db5c94f587f98a5e4"
+            |     },
+            |     "stand": {
+            |         "avatar": "stand-avatar-default.png",
+            |         "_id": "5f447501fba8314e91209635",
+            |         "name": "Taco To-go",
+            |         "id": "5f447501fba8314e91209635"
+            |     },
+            |     "text": "I love this place!!!",
+            |     "rating": 5,
+            |     "__v": 0
+            | }
+        
+        h2#favorite-obj: code.text-secondary Favorite Payload
+        +code_fig()
+            | {
+            |     "_id": "5f45a69574aa425c37b21644",
+            |     "user": "5f456b8db5c94f587f98a5e4",
+            |     "stand": {
+            |         "avatar": "stand-avatar-default.png",
+            |         "_id": "5f447501fba8314e91209635",
+            |         "name": "Taco To-go",
+            |         "id": "5f447501fba8314e91209635"
+            |     },
+            |     "__v": 0
             | }
