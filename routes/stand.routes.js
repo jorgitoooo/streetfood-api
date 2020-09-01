@@ -9,10 +9,17 @@ router
   .get(controller.stand.getAllStands)
   .post(
     controller.auth.protect,
-    controller.auth.restrictTo(ROLE.STAND_OWNER),
+    controller.auth.restrictTo(ROLE.ADMIN, ROLE.STAND_OWNER),
     controller.stand.createStand
   );
 
-router.route("/:id").get(controller.stand.getStand);
+router
+  .route("/:id")
+  .get(controller.stand.getStand)
+  .delete(
+    controller.auth.protect,
+    controller.auth.restrictTo(ROLE.ADMIN, ROLE.STAND_OWNER),
+    controller.stand.deleteStand
+  );
 
 module.exports = router;

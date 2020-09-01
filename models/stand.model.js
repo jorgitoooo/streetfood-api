@@ -103,6 +103,10 @@ const standSchema = new Schema(
     description: {
       type: String,
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -119,6 +123,12 @@ standSchema.virtual("reviews", {
 // Creates slug for stand name
 standSchema.pre("save", async function (next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+// Prevents deleted/inactive stands from being returned
+standSchema.pre(/^find/, function (next) {
+  this.where({ active: { $ne: false } });
   next();
 });
 

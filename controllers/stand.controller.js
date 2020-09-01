@@ -1,17 +1,39 @@
 const { Stand } = require("../models");
 const { CODE, STATUS } = require("../constants");
 const { catchAsync, AppError } = require("../utils");
-const { getAllReviews } = require("./review.controller");
+// const { getAllReviews } = require("./review.controller");
 
 exports.createStand = catchAsync(async function (req, res, next) {
-  console.log("createStand");
-  const stand = await Stand.create(req.body);
+  const stand = await Stand.create(req.body).select("-__v");
+
+  // TODO: Make sure that current user id == owner id passed in body if curr user !ADMIN
 
   res.status(CODE.OK).json({
     status: STATUS.SUCCESS,
     data: {
       stand,
     },
+  });
+});
+
+exports.deleteStand = catchAsync(async function (req, res, next) {
+  const stand = await Stand.findOneAndUpdate(
+    {
+      _id: req.params.id,
+      owner: req.user.id,
+    },
+    { active: false }
+  );
+
+  if (!stand) {
+    return next(
+      new AppError("Stand for user does not exists.", CODE.NOT_FOUND)
+    );
+  }
+
+  res.status(CODE.NO_CONTENT).json({
+    status: STATUS.SUCCESS,
+    data: null,
   });
 });
 
