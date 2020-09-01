@@ -14,7 +14,6 @@ exports.getAllReviews = catchAsync(async function (req, res, next) {
   });
 });
 
-// TODO: Implement everything below this comment
 exports.createReview = catchAsync(async function (req, res, next) {
   const newReview = await Review.create({
     author: req.params.id,
@@ -39,7 +38,7 @@ exports.updateReview = catchAsync(async function (req, res, next) {
       new: true,
       runValidators: true,
     }
-  );
+  ).select("-__v");
 
   if (!updatedReview) {
     return next(new AppError("Review not found", CODE.NOT_FOUND));

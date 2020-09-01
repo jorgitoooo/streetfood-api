@@ -18,7 +18,7 @@ exports.getFavorite = catchAsync(async function (req, res, next) {
   const favorite = await Favorite.find({
     _id: req.params.favoriteId,
     user: req.params.id,
-  });
+  }).select("__v");
 
   if (!favorite) {
     return next(new AppError("Favorite not found", CODE.NOT_FOUND));
@@ -36,7 +36,7 @@ exports.createFavorite = catchAsync(async function (req, res, next) {
   const newFavorite = await Favorite.create({
     user: req.params.id,
     stand: req.body.stand,
-  });
+  }).select("__v");
 
   res.status(CODE.CREATED).json({
     status: STATUS.SUCCESS,
