@@ -47,9 +47,9 @@ block routes
         article#user-signup.flex-column
             h2: code.text-secondary /user/signup
             +http_req('POST').bg-warning
-                +table("Creates a new user.", "N/A", "Authentication object", "N/A")(href="#auth-obj")
+                +table("Creates a new user.", "N/A", "Authentication object", "N/A")(href="#auth-res")
         
         article#user-login.flex-column
             h2: code.text-secondary /user/login
             +http_req('POST').bg-warning
-                +table("Login as an existing user.", "N/A", "Authentication object", "N/A")(href="#auth-obj")
+                +table("Login as an existing user.", "N/A", "Authentication object", "N/A")(href="#auth-res")

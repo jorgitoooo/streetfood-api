@@ -113,20 +113,21 @@ app.use(xss());
 app.use(compression());
 
 // 3) ROUTES
-app.get("/", (req, res) => {
+const docsRoute = (req, res) => {
   res.status(CODE.OK).render("index");
-});
+};
+const redirectRoute = (req, res) => {
+  res.redirect("/api/docs");
+};
 
+app.get("/api/docs", docsRoute);
 app.use("/api/v1/user", routes.user);
 app.use("/api/v1/stand", routes.stand);
 
 // Redirection to documentation
-const redirectRoute = (req, res) => {
-  res.redirect("/");
-};
+app.get("/", redirectRoute);
 app.get("/docs", redirectRoute);
 app.get("/docs/*", redirectRoute);
-app.get("/api/docs", redirectRoute);
 app.get("/api/docs/*", redirectRoute);
 
 app.all("*", (req, res, next) => {

@@ -4,7 +4,7 @@ block responses
     section.container.py-3
         +section_title("Responses")#responses
         hr
-        h2#auth-obj: code.text-secondary General Response
+        h2#gen-res: code.text-secondary General Response
         +code_fig()
             | {
             |     "status": ("fail" | "success"),
@@ -22,7 +22,7 @@ block responses
                 li: p #[code "token"] is a field holds the bearer token and is only returned by authentication routes. 
                 li: p #[code "data"] contains is the actual object being returned.
 
-        h2#auth-obj: code.text-secondary Authentication Response
+        h2#auth-res: code.text-secondary Authentication Response
         +code_fig()
             | {
             |     "status": "success",
@@ -95,46 +95,32 @@ block responses
             |         },
             |         "hoursOfOp": {
             |             "monday": {
-            |                 "_id": "5f44aa2084f63d51c9997ad5",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ad5"
             |             },
             |             "tuesday": {
-            |                 "_id": "5f44aa2084f63d51c9997ad6",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ad6"
             |             },
             |             "wednesday": {
-            |                 "_id": "5f44aa2084f63d51c9997ad7",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ad7"
             |             },
             |             "thursday": {
-            |                 "_id": "5f44aa2084f63d51c9997ad8",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ad8"
             |             },
             |             "friday": {
-            |                 "_id": "5f44aa2084f63d51c9997ad9",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ad9"
             |             },
             |             "saturday": {
-            |                 "_id": "5f44aa2084f63d51c9997ada",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997ada"
             |             },
             |             "sunday": {
-            |                 "_id": "5f44aa2084f63d51c9997adb",
             |                 "openTime": "4:00 pm",
             |                 "closeTime": "11:00 pm",
-            |                 "id": "5f44aa2084f63d51c9997adb"
             |             }
             |         },
             |         "avatar": "stand-avatar-default.png",
