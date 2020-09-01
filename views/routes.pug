@@ -48,12 +48,12 @@ block routes
                 +table("Delete currently logged in user.", "[user, stand-owner]")
 
         
-        article#user.flex-column
+        article#user-id.flex-column
             h2: code.text-secondary /user/:id
             +http_req('GET').bg-success
                 +table("Retrieve user with `id`.", "All", "User object.")(href="#user-obj")
 
-        article#user-me.flex-column
+        article#user-id-review.flex-column
             h2: code.text-secondary /user/:id/review
             +http_req('GET').bg-success
                 +table(
@@ -68,7 +68,7 @@ block routes
                     "Review object."
                     )(href="#review-obj")
 
-        article#user-me.flex-column
+        article#user-id-review-reviewId.flex-column
             h2: code.text-secondary /user/:id/review/:reviewId
             +http_req('PATCH').bg-secondary
                 +table(
@@ -80,7 +80,7 @@ block routes
             +http_req('DELETE').bg-danger
                 +table("Delete review with `reviewId` for user with `id`.", "[user, admin]")
 
-        article#user-me.flex-column
+        article#user-id-favorite.flex-column
             h2: code.text-secondary /user/:id/favorite/
             +http_req('GET').bg-secondary
                 +table(
@@ -96,7 +96,7 @@ block routes
                     "Favorite object."
                     )(href="#favorite-obj")
 
-        article#user-me.flex-column
+        article#user-id-favorite-standId.flex-column
             h2: code.text-secondary /user/:id/favorite/:standId
             +http_req('DELETE').bg-danger
                 +table("Delete favorite with `standId` for user with `id`.", "All")
