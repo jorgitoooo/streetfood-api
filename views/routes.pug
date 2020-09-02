@@ -27,43 +27,60 @@ block routes
     section.container.py-3
         +section_title("Routes")#routes
         hr
+        //- 
+        //- USER ROUTES
+        //- 
         article#user.flex-column
             h2: code.text-secondary /user
             +http_req('GET').bg-success
-                +table("Retrieve all users.", "All", "Array of user objects.")(href="#user-obj")
+                +table(
+                    "Retrieves all users.",
+                    "All",
+                    "Array of user objects."
+                    )(href="#user-obj")
 
         article#user-me.flex-column
             h2: code.text-secondary /user/me
             +http_req('GET').bg-success
-                +table("Retrieve currently logged in user.", "[user, stand-owner]", "User object.")(href="#user-obj")
+                +table(
+                    "Retrieves currently logged in user.",
+                    "[user, stand-owner]",
+                    "User object."
+                    )(href="#user-obj")
 
             +http_req('PATCH').bg-secondary
                 +table(
-                    "Update currently logged in user.",
+                    "Updates currently logged in user.",
                     "[user, stand-owner]",
                     "Updated user object"
                     )(href="#user-obj")
 
             +http_req('DELETE').bg-danger
-                +table("Delete currently logged in user.", "[user, stand-owner]")
+                +table(
+                    "Deletes currently logged in user.",
+                    "[user, stand-owner]")
 
         
         article#user-id.flex-column
             h2: code.text-secondary /user/:id
             +http_req('GET').bg-success
-                +table("Retrieve user with `id`.", "All", "User object.")(href="#user-obj")
+                +table(
+                    "Retrieves user with `id`.",
+                    "All",
+                    "User object."
+                    )(href="#user-obj")
 
         article#user-id-review.flex-column
             h2: code.text-secondary /user/:id/review
             +http_req('GET').bg-success
                 +table(
-                    "Retrieve all reviews for user with `id`.",
+                    "Retrieves all reviews for user with `id`.",
                     "[user, admin]",
                     "Array of review objects."
                     )(href="#review-obj")
             +http_req('POST').bg-warning
                 +table(
-                    "Create a review for user with `id`.",
+                    "Creates a review for user with `id`.",
                     "[user, admin]",
                     "Review object."
                     )(href="#review-obj")
@@ -72,26 +89,28 @@ block routes
             h2: code.text-secondary /user/:id/review/:reviewId
             +http_req('PATCH').bg-secondary
                 +table(
-                    "Update review with `reviewId` for user with `id`.", 
+                    "Updates review with `reviewId` for user with `id`.", 
                     "[user, admin]", 
                     "Updated review object."
                     )(href="#review-obj")
 
             +http_req('DELETE').bg-danger
-                +table("Delete review with `reviewId` for user with `id`.", "[user, admin]")
+                +table(
+                    "Deletes review with `reviewId` for user with `id`.",
+                    "[user, admin]")
 
         article#user-id-favorite.flex-column
             h2: code.text-secondary /user/:id/favorite/
             +http_req('GET').bg-secondary
                 +table(
-                    "Retrieve all favorites for user with `id`.", 
+                    "Retrieves all favorites for user with `id`.", 
                     "All", 
                     "Array of favorite objects."
                     )(href="#favorite-obj")
 
             +http_req('POST').bg-danger
                 +table(
-                    "Create a favorite for user with `id`.",
+                    "Creates a favorite for user with `id`.",
                     "All",
                     "Favorite object."
                     )(href="#favorite-obj")
@@ -99,14 +118,61 @@ block routes
         article#user-id-favorite-standId.flex-column
             h2: code.text-secondary /user/:id/favorite/:standId
             +http_req('DELETE').bg-danger
-                +table("Delete favorite with `standId` for user with `id`.", "All")
+                +table(
+                    "Deletes favorite with `standId` for user with `id`.",
+                    "All")
 
         article#user-signup.flex-column
             h2: code.text-secondary /user/signup
             +http_req('POST').bg-warning
-                +table("Creates a new user.", "N/A", "Authentication object", "N/A")(href="#auth-res")
+                +table(
+                    "Creates a new user.",
+                    "N/A",
+                    "Authentication object",
+                    "N/A"
+                    )(href="#auth-res")
         
         article#user-login.flex-column
             h2: code.text-secondary /user/login
             +http_req('POST').bg-warning
-                +table("Login as an existing user.", "N/A", "Authentication object", "N/A")(href="#auth-res")
+                +table(
+                    "Login as an existing user.",
+                    "N/A",
+                    "Authentication object",
+                    "N/A"
+                    )(href="#auth-res")
+
+        //- 
+        //- STAND ROUTES
+        //- 
+        article#stand.flex-column
+            h2: code.text-secondary /stand
+            +http_req('GET').bg-success
+                +table(
+                    "Retrieves all stands.",
+                    "All",
+                    "Array of stand objects."
+                    )(href="#stand-obj")
+
+            +http_req('POST').bg-warning
+                +table(
+                    "Creates a new stand.",
+                    "[stand-owner, admin]",
+                    "Stand object."
+                    )(href="#stand-obj")
+
+        article#stand-id.flex-column
+            h2: code.text-secondary /stand/:id
+            +http_req('GET').bg-success
+                +table(
+                    "Retrieves stand with `id`.",
+                    "All",
+                    "Stand object."
+                    )(href="#stand-obj")
+
+            +http_req('DELETE').bg-danger
+                +table(
+                    "Deletes stand with `id`.",
+                    "[stand-owner, admin]",
+                    "Stand object."
+                    )(href="#stand-obj")
