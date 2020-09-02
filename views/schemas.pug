@@ -1,0 +1,165 @@
+include mixins/util
+
+block schemas
+    section.container.py-3
+        +section_title("Schemas")#schemas
+        hr
+        h2: code.text-secondary User
+        +code_fig()
+            | UserSchema(
+            |   {
+            |     role: {
+            |       type: String,
+            |       enum: [ADMIN, USER, STAND_OWNER],
+            |     },
+            |     firstName: {
+            |       type: String,
+            |       required
+            |     },
+            |     lastName: {
+            |       type: String,
+            |       required: true
+            |     },
+            |     handle: {
+            |       type: String,
+            |       required: true
+            |       unique: true,
+            |       maxlength: 15
+            |     },
+            |     email: {
+            |       type: String,
+            |       required: true,
+            |       unique: true
+            |     },
+            |     password: {
+            |       type: String,
+            |       required: true,
+            |       min: 8
+            |     },
+            |     passwordConfirm: {
+            |       type: String,
+            |       required: true,
+            |     },
+            |     avatar: String,
+            |     passwordChangedDate: Date,
+            |     passwordResetToken: String,
+            |     passwordResetExpires: Date,
+            |     active: Boolean,
+            |     createdAt: Date
+            |   }
+            | );
+
+        h2: code.text-secondary Stand
+        +code_fig()
+            | StandSchema(
+            |   {
+            |     name: {
+            |       type: String,
+            |       required: true,
+            |       unique: true,
+            |     },
+            |     avatar: String,
+            |     location: {
+            |       type: {
+            |         type: String,
+            |         enum: ["Point"],
+            |       },
+            |       coordinates: [Number],
+            |       address: String,
+            |     },
+            |     hoursOfOp: {
+            |       monday: hoursOfOpSchema,
+            |       tuesday: hoursOfOpSchema,
+            |       wednesday: hoursOfOpSchema,
+            |       thursday: hoursOfOpSchema,
+            |       friday: hoursOfOpSchema,
+            |       saturday: hoursOfOpSchema,
+            |       sunday: hoursOfOpSchema,
+            |     },
+            |     slug: String,
+            |     ratingsAverage: Number,
+            |     ratingsQuantity: Number,
+            |     owner: {
+            |       type: ObjectId,
+            |       ref: "User",
+            |       required: true,
+            |     },
+            |     menu: [menuItemSchema],
+            |     description: String,
+            |     active: {
+            |       type: Boolean,
+            |       default: true,
+            |     },
+            |   }
+            | );
+            |
+            | hoursOfOpSchema(
+            |   {
+            |     openTime: {
+            |       type: String,
+            |       required: true,
+            |     },
+            |     closeTime: {
+            |       type: String,
+            |       required: true,
+            |     }
+            |   }
+            | );
+            |
+            | menuItemSchema(
+            |   {
+            |     name: {
+            |         type: String,
+            |         required: true,
+            |     },
+            |     price: {
+            |         type: Number,
+            |         required: true,
+            |         min: 0,
+            |     },
+            |     ratingsAverage: {
+            |         type: Number,
+            |         min: 1.0,
+            |         max: 5.0,
+            |     },
+            |     ratingsQuantity: Number,
+            |     image: String,
+            |   }
+            | );
+
+        h2: code.text-secondary Review
+        +code_fig()
+            | ReviewSchema(
+            |   {
+            |     author: {
+            |       type: ObjectId,
+            |       ref: "User",
+            |     },
+            |     stand: {
+            |       type: ObjectId,
+            |       ref: "Stand",
+            |     },
+            |     text: String,
+            |     rating: {
+            |       type: Number,
+            |       min: 0,
+            |       max: 5,
+            |       required: true,
+            |     }
+            |   }
+            | );
+
+        h2: code.text-secondary Favorite
+        +code_fig()
+            | FavoriteSchema(
+            |   {
+            |     user: {
+            |       type: Schema.ObjectId,
+            |       ref: "User",
+            |     },
+            |     stand: {
+            |       type: Schema.ObjectId,
+            |       ref: "Stand",
+            |     },
+            |   }
+            | );
